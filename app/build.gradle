@@ -1,0 +1,31 @@
+apply plugin: "com.android.application"
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.szollosi.firebasedemo"
+        minSdkVersion 17
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+ext{
+    supportLibVersion = "27.1.1"
+}
+
+dependencies {
+    implementation "com.android.support:appcompat-v7:${supportLibVersion}"
+    implementation "com.android.support:support-v4:${supportLibVersion}"
+    implementation "com.android.support:support-media-compat:${supportLibVersion}"
+    implementation "com.android.support.constraint:constraint-layout:1.1.0"
+    implementation "com.google.firebase:firebase-messaging:15.0.2"
+}
+
+apply plugin: "com.google.gms.google-services"
