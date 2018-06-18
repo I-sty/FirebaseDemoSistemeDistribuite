@@ -1,9 +1,14 @@
 package com.szollosi.firebasedemo;
 
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.szollosi.firebasedemo.data.ReceiverItem;
+
+import java.util.Date;
 
 public class FirebaseCommunicationService extends FirebaseMessagingService {
   private static final String TAG = FirebaseCommunicationService.class.getName();
@@ -16,24 +21,24 @@ public class FirebaseCommunicationService extends FirebaseMessagingService {
     // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
     Log.d(TAG, "From: " + remoteMessage.getFrom());
 
-    // Check if message contains a data payload.
-    if (remoteMessage.getData().size() > 0) {
-      Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-      handleMessage();
-
-    }
 
     // Check if message contains a notification payload.
-    if (remoteMessage.getNotification() != null) {
-      Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+    RemoteMessage.Notification notification = remoteMessage.getNotification();
+    if (notification != null) {
+      Log.d(TAG, "Message Notification Body: " + notification.getBody());
+      handleMessage(remoteMessage.getMessageId(), new Date(remoteMessage.getSentTime()),
+          notification.getBody());
     }
 
     // Also if you intend on generating your own notifications as a result of a received FCM
     // message, here is where that should be initiated. See sendNotification method below.
   }
 
-  private void handleMessage() {
-
+  private void handleMessage(String id, Date time, String message) {
+    ReceiverItem receiverItem = new ReceiverItem(id, time, message);
+    Intent intent = new Intent(PlaceholderFragment.ACTION_MESSAGE_RECEIVED);
+    intent.putExtra(PlaceholderFragment.KEY_EXTRA_MESSAGE, receiverItem);
+    LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
   }
 
   @Override

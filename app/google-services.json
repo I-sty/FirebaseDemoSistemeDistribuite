@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "166614216884-duj12f2n7aluhpg0uiujc121um60oj4l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.szollosi.firebasedemo",
+            "certificate_hash": "59ca6d8485063cc0fc4cb227c81502c8a597db9b"
+          }
+        },
+        {
           "client_id": "166614216884-p58dsl2l2qh984q7o888jb1351hnufrc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

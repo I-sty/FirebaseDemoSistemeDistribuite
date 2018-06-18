@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">FirebaseDemo</string>
+    <string name="tab_text_1">Receiver</string>
+    <string name="tab_text_2">Sender</string>
+    <string name="date_diff">Date diff:</string>
+    <string name="message_received">Message received:</string>
+    <string name="message">Message:</string>
+    <string name="message_date">Message sent:</string>
+    <string name="message_id">Message Id:</string>
+    <string name="label_my_token">My token:</string>
+    <string name="label_project_id">Project ID</string>
+    <string name="label_api_key">API key</string>
+    <string name="label_receiver_token">Receiver token</string>
+    <string name="label_repeat_task">Repeat task</string>
+    <string name="label_period">Period</string>
+    <string name="label_in_every">In every:</string>
+    <string name="error_can_not_empty">This field is mandatory</string>
+    <string name="warning_fill_fields">Please fill every fields!</string>
 </resources>
