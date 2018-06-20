@@ -59,6 +59,9 @@ dependencies {
 
     // LeakCanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+
+    // OkHttp
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 }
 
 apply plugin: "com.google.gms.google-services"

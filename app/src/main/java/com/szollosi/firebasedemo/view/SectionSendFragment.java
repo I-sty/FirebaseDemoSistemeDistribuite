@@ -3,6 +3,7 @@ package com.szollosi.firebasedemo.view;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,18 +24,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
 import com.szollosi.firebasedemo.R;
-import com.szollosi.firebasedemo.xmpp.util.Util;
-
-import java.util.Random;
-
-import static com.szollosi.firebasedemo.xmpp.util.Util.BACKEND_ACTION_ECHO;
+import com.szollosi.firebasedemo.SendMessageFromSender;
 
 public class SectionSendFragment extends Fragment {
 
-  private static final String API_KEY =
+  public static final String API_KEY =
       "AAAAJsr7MLQ:APA91bH_HourueyFn1Tuxzj4p3FEt_2eN7rsRm5VczNkfvQP-aeede8LqXSzC-0ibWlZzkQ1Q5ijuzLcRpY9rRqnBo_" +
           "-IezhF7aJhvu-7we0d9MP_QdRXXSYUfaqhfW9YjK4s8OxKoMn";
 
@@ -97,15 +92,7 @@ public class SectionSendFragment extends Fragment {
         showError(receiverTokenEditText);
         return;
       }
-      //new EntryPoint(projectIDText, apiKey, true, receiverToken);
-      try {
-        FirebaseMessaging firebaseMessaging = FirebaseMessaging.getInstance();
-        firebaseMessaging.send(new RemoteMessage.Builder(SENDER_ID + "@" + Util.FCM_SERVER_AUTH_CONNECTION)
-            .setMessageId(Integer.toString(new Random().nextInt(9999))).addData("message", "message-isti")
-            .addData("action", BACKEND_ACTION_ECHO).setTtl(0).build());
-      } catch (Exception e) {
-        Log.e(TAG, "[onClick] " + e);
-      }
+      sendMessage(receiverToken, messageEditText.getText().toString());
     }
   };
 
@@ -136,6 +123,17 @@ public class SectionSendFragment extends Fragment {
     actionButtonClick = null;
     repeatTaskSwitchChangeListener = null;
     onClickCopyIcon = null;
+  }
+
+
+  /**
+   * Sends a Firebase message
+   *
+   * @param to The address of the receiver
+   * @param message The content of the message
+   */
+  public void sendMessage(final String to, final String message) {
+    new SendMessageFromSender().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, message, to);
   }
 
   private void loadViews(RelativeLayout root) {

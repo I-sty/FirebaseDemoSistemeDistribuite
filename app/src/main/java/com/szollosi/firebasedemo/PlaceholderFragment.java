@@ -21,6 +21,8 @@ public class PlaceholderFragment extends Fragment {
 
   public static final String KEY_EXTRA_MESSAGE = "key-message";
 
+  public static final String KEY_EXTRA_DATE = "key-date";
+
   private static final String TAG = PlaceholderFragment.class.getName();
 
   /**
